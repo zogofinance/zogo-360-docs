@@ -1,0 +1,41 @@
+<h1>{{ title }}</h1>
+
+<div class="container">
+  <p>
+    Interact with Zogo 360 below and watch the event log update in real-time.
+  </p>
+
+  <!-- Zogo 360 Web Component with event listeners -->
+  <zogo-360
+    [attr.token]="authToken"
+    width="100%"
+    height="400px"
+    (zogo360:initialized)="onZogoInitialized($event)"
+    (message)="onZogoMessage($event)"
+    (openurl)="onOpenUrl($event)"
+    (playsound)="onPlaySound($event)"
+  >
+  </zogo-360>
+
+  <!-- Event Log Section -->
+  <div class="event-log-section">
+    <div class="event-log-header">
+      <h3>Event Log</h3>
+      <button (click)="clearLog()" class="clear-button">Clear Log</button>
+    </div>
+
+    <div class="event-log">
+      <div *ngIf="eventLog.length === 0" class="no-events">
+        No events captured yet. Interact with Zogo 360 to see events.
+      </div>
+
+      <div *ngFor="let event of eventLog" class="event-entry">
+        <span class="event-timestamp">{{
+          formatTimestamp(event.timestamp)
+        }}</span>
+        <span class="event-type">{{ event.type }}</span>
+        <pre class="event-data">{{ formatEventData(event.data) }}</pre>
+      </div>
+    </div>
+  </div>
+</div>

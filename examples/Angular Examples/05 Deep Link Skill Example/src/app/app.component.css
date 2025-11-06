@@ -1,0 +1,179 @@
+.app-content {
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+/* Progress section specific to component */
+.progress-section {
+  text-align: center;
+  padding: 30px 20px;
+  background: white;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.progress-section p {
+  margin: 8px 0;
+  color: #4a5568;
+}
+
+.progress-section p strong {
+  color: #1a1a1a;
+  font-size: 18px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.5s ease;
+}
+
+/* Skill grid */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 30px;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Skill card styling */
+.skill-card {
+  background: white;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.skill-card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 24px;
+  position: relative;
+}
+
+.skill-card-header h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.skill-card-body {
+  padding: 24px;
+}
+
+.skill-card-body p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  font-size: 15px;
+}
+
+.skill-metadata {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #718096;
+}
+
+.skill-metadata span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.skill-card button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.skill-card button:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.skill-card button:disabled {
+  background: #e2e8f0;
+  color: #718096;
+  cursor: default;
+  transform: none;
+}
+
+/* Completion state */
+.skill-card.completed {
+  border: 2px solid #48bb78;
+}
+
+.skill-card.completed .skill-card-header {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.completion-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  color: #48bb78;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Zogo container */
+.zogo-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  z-index: 1000;
+}
+
+/* Ensure Zogo element fills container */
+zogo-360 {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animation styles */
+:host {
+  display: block;
+  position: relative;
+  overflow-x: hidden;
+}

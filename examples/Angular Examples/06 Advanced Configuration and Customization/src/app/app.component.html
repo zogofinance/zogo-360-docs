@@ -1,0 +1,61 @@
+<h1>{{ title }}</h1>
+
+<!-- Control Panel -->
+<div class="control-panel">
+  <div class="control-section">
+    <h3>Theme Selection</h3>
+    <p>Choose a theme to customize the appearance of Zogo 360:</p>
+
+    <button
+      *ngFor="let theme of themes"
+      (click)="applyTheme(theme.name)"
+      [class.active]="isThemeActive(theme.name)"
+      [class.light-theme]="theme.name === 'light'"
+      [class.dark-theme]="theme.name === 'dark'"
+    >
+      {{ theme.displayName }}
+    </button>
+  </div>
+
+  <!-- Additional customization options (commented out for reference) -->
+  <!--
+  <div class="control-section">
+    <h3>Sound Settings</h3>
+    <p>Sound customization allows you to replace default sounds or mute them entirely.</p>
+    <button (click)="setSounds('default')">Default Sounds</button>
+    <button (click)="setSounds('muted')">Mute All Sounds</button>
+  </div>
+
+  <div class="control-section">
+    <h3>External CSS</h3>
+    <p>You can load custom CSS from an external URL for easier theme management.</p>
+    <input
+      type="text"
+      id="cssUrl"
+      placeholder="https://example.com/custom.css"
+      style="width: 300px"
+    />
+    <button (click)="applyCSSFromURL()">Apply CSS from URL</button>
+  </div>
+  -->
+</div>
+
+<!-- Status Message -->
+<div
+  *ngIf="statusMessage"
+  class="status-message"
+  [class.success]="statusMessage.type === 'success'"
+  [class.error]="statusMessage.type === 'error'"
+>
+  {{ statusMessage.text }}
+</div>
+
+<!-- Zogo 360 Component -->
+<zogo-360
+  #zogoElement
+  [attr.token]="authToken"
+  width="100%"
+  height="600px"
+  (message)="onZogoMessage($event)"
+>
+</zogo-360>

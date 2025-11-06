@@ -1,0 +1,15 @@
+/* Global styles for Zogo 360 Basic Angular Example */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  padding: 20px;
+  margin: 0;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://sdk-cdn.zogo.com/zogo-360-integration-latest.min.js"></script>
+  </head>
+  <body>
+    <zogo-360
+      id="zogo-container"
+      token="YOUR_AUTH_TOKEN_HERE"
+      width="100%"
+      height="600px"
+    >
+    </zogo-360>
+
+    <script>
+      const zogoElement = document.getElementById("zogo-container");
+
+      // Listen for when Zogo 360 is initialized
+      zogoElement.addEventListener("zogo360:initialized", function (event) {
+        console.log("Zogo 360 initialized with config:", event.detail.config);
+      });
+
+      // Listen for all messages from Zogo 360
+      zogoElement.addEventListener("message", function (event) {
+        console.log(
+          "Message received:",
+          event.detail.type,
+          event.detail.payload
+        );
+      });
+
+      // Listen for URL open requests
+      zogoElement.addEventListener("openurl", function (event) {
+        console.log("URL requested:", event.detail.url);
+        window.open(event.detail.url, "_blank");
+      });
+
+      // Listen for sound play requests
+      zogoElement.addEventListener("playsound", function (event) {
+        console.log("Sound requested:", event.detail);
+      });
+    </script>
+  </body>
+</html>

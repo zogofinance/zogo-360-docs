@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://sdk-cdn.zogo.com/zogo-360-integration-latest.min.js"></script>
+  </head>
+  <body>
+    <div id="app-content">
+      <h1>My Application</h1>
+      <button onclick="openZogoModule('994850')">The Product Life Cycle</button>
+      <button onclick="openZogoModule('1008545')">
+        Investing vs. Savings Goals
+      </button>
+    </div>
+
+    <div id="zogo-container" style="display: none">
+      <zogo-360 id="zogo-element" width="100%" height="100vh" auto-init="false">
+      </zogo-360>
+    </div>
+
+    <script>
+      const zogoElement = document.getElementById("zogo-element");
+      const appContent = document.getElementById("app-content");
+      const zogoContainer = document.getElementById("zogo-container");
+
+      function openZogoModule(moduleId) {
+        // Hide app content and show Zogo
+        appContent.style.display = "none";
+        zogoContainer.style.display = "block";
+
+        // Initialize with deep link configuration
+        zogoElement.initialize({
+          user_auth_token: "YOUR_AUTH_TOKEN_HERE",
+          widget_type: "deep_link",
+          module_id: moduleId,
+        });
+      }
+
+      // Listen for exit requests
+      zogoElement.addEventListener("message", function (event) {
+        if (event.detail.type === "EXIT_REQUESTED") {
+          handleZogoExit(event.detail.payload);
+        }
+      });
+
+      function handleZogoExit(exitData) {
+        console.log("Exit requested:", exitData);
+
+        // Hide Zogo and show app content
+        zogoContainer.style.display = "none";
+        appContent.style.display = "block";
+
+        // Handle different exit scenarios
+        if (exitData.source === "end_of_module") {
+          // Module was completed
+          alert("Congratulations! You completed the module.");
+          // Update user progress, unlock rewards, etc.
+        } else if (exitData.source === "back_button") {
+          // User clicked back without completing
+          console.log("User exited early");
+          // Maybe save partial progress
+        }
+      }
+    </script>
+  </body>
+</html>

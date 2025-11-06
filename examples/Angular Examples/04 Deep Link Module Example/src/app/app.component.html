@@ -1,0 +1,37 @@
+<!-- Main App Content -->
+<div *ngIf="!showZogo" [@slideToggle]="'in'" class="app-content">
+  <h1>{{ title }}</h1>
+
+  <div class="stats">
+    <p>Complete financial education modules to improve your knowledge.</p>
+    <p class="progress">
+      Progress: {{ getCompletedCount() }} / {{ modules.length }} modules
+      completed
+    </p>
+  </div>
+
+  <div class="module-grid">
+    <div *ngFor="let module of modules" class="module-card">
+      <h3>
+        {{ module.title }}
+        <span *ngIf="module.completed" class="completion-badge">Completed</span>
+      </h3>
+      <p>{{ module.description }}</p>
+      <button (click)="openZogoModule(module.id)" [disabled]="module.completed">
+        {{ module.completed ? "Completed" : "Start Module" }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Zogo 360 Container -->
+<div *ngIf="showZogo" class="zogo-container">
+  <zogo-360
+    #zogoElement
+    width="100%"
+    height="100vh"
+    auto-init="false"
+    (message)="onZogoMessage($event)"
+  >
+  </zogo-360>
+</div>

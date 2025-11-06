@@ -1,0 +1,48 @@
+/* Global styles for Zogo 360 Event Listeners Angular Example */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  padding: 20px;
+  margin: 0;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-log {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 12px;
+  padding: 10px;
+  height: 200px;
+  overflow-y: auto;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.event-entry {
+  margin-bottom: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid #333;
+}
+
+.event-timestamp {
+  color: #569cd6;
+  font-weight: bold;
+}
+
+.event-type {
+  color: #4ec9b0;
+  font-weight: bold;
+}
+
+.event-data {
+  color: #ce9178;
+  margin-left: 20px;
+}
