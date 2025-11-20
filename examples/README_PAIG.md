@@ -1,6 +1,6 @@
 # Zogo 360 Platform-Agnostic Integration Guide
 
-This guide provides instructions for integrating Zogo 360 into any platform (Swift, Kotlin, Flutter, etc.) by implementing a WebView-based solution with proper message passing.
+This guide provides high level instructions for integrating Zogo 360 into any platform (Swift, Kotlin, Flutter, TabrisJS, etc.) by implementing a WebView-based solution with proper message passing.
 
 ## Overview
 
