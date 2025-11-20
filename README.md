@@ -66,6 +66,10 @@ Choose your platform to get started with integration:
 - [**React Examples**](examples/React%20Examples/) - Sample implementations for React applications
 - [**Angular Examples**](examples/Angular%20Examples/) - Sample implementations for Angular applications
 
+### 🔧 Other Platforms
+
+- [**Platform Agnostic Implementation Guide**](examples/README_PAIG.md) - WebView-based integration guide for platforms not specifically supported (Swift, Kotlin, Flutter,TabrisJS, etc.)
+
 ## Configuration & Advanced Topics
 
 ### 🔧 Portal Configuration
