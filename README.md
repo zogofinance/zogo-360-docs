@@ -31,7 +31,8 @@ To obtain a token, make a POST request to the Zogo API from your backend:
     "dob": "01/15/1990",
     "email": "john.doe@example.com",
     "locale": "en-US",
-    "is_test_user": false
+    "is_test_user": false,
+    "external_institution_id": "some_value" //this is an optional value for auditing purposes only
   }
 }
 ```
