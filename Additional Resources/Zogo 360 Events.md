@@ -180,6 +180,31 @@ function handleOpenUrl(payload) {
 }
 ```
 
+#### Keep Alive Message
+
+The Zogo 360 widget sends a `KEEP_ALIVE` message to the parent container whenever user activity is detected. This allows the host application to track user engagement and manage session timeouts.
+Use this message to:
+
+- Reset session inactivity timers
+- Prevent automatic logouts during active widget usage
+- Track user engagement metrics
+- 
+## Triggered Events
+
+- **Click** – Any mouse click within the widget
+- **Keypress** – Any keyboard input within the widget
+
+## Message Format
+
+```javascript
+{
+  type: 'KEEP_ALIVE',
+  payload: {
+    timestamp: 1713823200000  // Unix timestamp in milliseconds
+  }
+}
+```
+
 ### Customization Events
 
 #### CUSTOM_CSS_APPLIED
