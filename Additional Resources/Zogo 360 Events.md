@@ -188,13 +188,12 @@ Use this message to:
 - Reset session inactivity timers
 - Prevent automatic logouts during active widget usage
 - Track user engagement metrics
-- 
-  Triggered Events
+ 
+Triggered Events
 - **Click** – Any mouse click within the widget
 - **Keypress** – Any keyboard input within the widget
 
-  Message Format
-
+Message Format
 ```javascript
 {
   type: 'KEEP_ALIVE',
