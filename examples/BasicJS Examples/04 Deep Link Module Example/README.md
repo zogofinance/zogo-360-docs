@@ -1,84 +1,152 @@
 # Deep Link Module Example
 
-This example demonstrates how to use Zogo 360's deep linking feature to open specific learning modules directly, and how to properly handle the exit flow when users complete or leave a module.
+This example demonstrates how to use Zogo 360's deep-linking feature to open a specific learning module and handle the exit flow when a user completes or leaves it.
 
 ## What This Example Shows
 
 - How to use the `widget_type: 'deep_link'` configuration
-- How to pass a specific `module_id` to open a module directly
-- How to handle the `EXIT_REQUESTED` event properly
-- How to integrate module completion into your application flow
+- How to pass a `module_id`
+- How to handle the `EXIT_REQUESTED` window message
+- How to retain module context in the parent application
 
 ## Requirements
 
 - A valid Zogo 360 authentication token
-- Valid module IDs (this example uses real module IDs)
-- A modern web browser (Chrome 54+, Firefox 63+, Safari 10.1+, Edge 79+)
-
-## Features Used
-
-- **Deep Link Widget Type**: Opens a specific module instead of the full Zogo experience
-- **Module ID Parameter**: Directs users to a specific learning module
-- **Exit Event Handling**: Properly returns users to your application
-- **Dynamic Initialization**: Initializes with different modules based on user selection
+- A valid module ID that the user can access
+- A modern web browser
 
 ## How Deep Linking Works
 
-When you initialize Zogo 360 with `widget_type: 'deep_link'` and a `module_id`, the component:
+When Zogo 360 is initialized with `widget_type: 'deep_link'` and a `module_id`, it:
 
-1. Skips the Zogo home page and navigation
-2. Opens directly to the specified module
-3. Focuses the user on completing that specific content
-4. Sends an `EXIT_REQUESTED` event when the user finishes or exits
+1. Skips the normal Zogo landing-page flow.
+2. Opens the requested module.
+3. Sends an `EXIT_REQUESTED` message to the parent window when the user exits or completes the deep-linked flow.
+4. Does not close or hide itself. The parent application must handle the message.
 
 ## Example Module IDs
 
-This example includes two real Zogo modules:
+- **994850**: The Product Life Cycle
+- **1008545**: Investing vs. Savings Goals
 
-- **994850**: "The Product Life Cycle" - Learn about how products evolve in the market
-- **1008545**: "Investing vs. Savings Goals" - Understand the difference between saving and investing
+Confirm that these modules are available to the authenticated user before relying on them in an integration.
+
+## Opening a Module
+
+Retain the selected module ID in the parent application because the exit payload does not include it.
+
+```javascript
+let activeModuleId = null;
+
+function openZogoModule(moduleId) {
+  activeModuleId = moduleId;
+  saveAppState();
+
+  analytics.track('zogo_module_started', {
+    moduleId,
+    timestamp: Date.now(),
+  });
+
+  zogoElement.initialize({
+    user_auth_token: token,
+    widget_type: 'deep_link',
+    module_id: moduleId,
+  });
+}
+```
 
 ## Exit Handler Implementation
 
-The exit handler is crucial for deep link integrations because it:
+Zogo sends `EXIT_REQUESTED` using `window.parent.postMessage()`. Listen for the browser's `message` event and read the message from `event.data`.
 
-1. Returns users to your application when they're done
-2. Lets you track module completion
-3. Allows you to update user progress or unlock rewards
+```javascript
+window.addEventListener('message', (event) => {
+  // Replace this with the exact trusted Zogo origin.
+  if (event.origin !== ZOGO_ORIGIN) return;
+
+  const message = event.data;
+  if (message?.type !== 'EXIT_REQUESTED') return;
+
+  handleZogoExit({
+    moduleId: activeModuleId,
+    ...message.payload,
+  });
+});
+```
 
 ### Exit Event Payload
-
-When a user exits, you'll receive:
 
 ```javascript
 {
   type: 'EXIT_REQUESTED',
   payload: {
-    source: string,  // Why they're exiting
-    context: {       // Additional information
-      currentPage: string,
-      moduleId: string,
-      progress: number
-    }
+    timestamp: 1724784000000,
+    source: 'learn_exit_button'
   }
 }
 ```
 
+The payload does not currently include `moduleId`, `currentPage`, completion progress, or other module context. The parent application must retain any context it needs when initializing Zogo.
+
 ### Exit Sources
 
-- **`end_of_module`**: User completed the entire module successfully
-- **`back_button`**: User clicked back/exit without completing
-- **`exit_button`**: User explicitly clicked an exit button
+Current sources include:
+
+- `learn_exit_button`: The user clicked the X button.
+- `deep_link_intro_exit`: The deep-link introduction requested an exit.
+- `end_of_module_continue`: A module deep link was completed and continued.
+- `module_complete_exit_requested`: A skill deep-link flow completed its final module.
+- `end_of_module_default`: End-of-module navigation did not provide a recognized destination.
+- `badge_continue`: The user continued after receiving a badge.
+
+Additional end-of-module sources may be forwarded from navigation data, so integrations should not treat this list as an exhaustive enum.
+
+## Hiding Zogo's X Button
+
+The parent application can inject CSS after the Zogo iframe is ready by sending a `CUSTOM_CSS` message. Hide both desktop and mobile versions of the Learn exit button:
+
+```javascript
+function hideZogoExitButton(zogoIframe) {
+  zogoIframe.contentWindow.postMessage(
+    {
+      type: 'CUSTOM_CSS',
+      payload: {
+        css: `
+          .learn-back-button-left,
+          .learn-back-button-mobile {
+            display: none !important;
+          }
+        `,
+      },
+    },
+    ZOGO_ORIGIN,
+  );
+}
+```
+
+Send this only after the iframe has emitted `CONTAINER_READY`. Zogo acknowledges the inline injection with:
+
+```javascript
+{
+  type: 'CUSTOM_CSS_APPLIED',
+  payload: {
+    success: true,
+    timestamp: 1724784000000,
+    source: 'inline'
+  }
+}
+```
+
+Hiding the X removes the visible manual exit action, but it does not change completion-related `EXIT_REQUESTED` messages. The parent application must still handle those messages and should provide another accessible way to leave the experience when appropriate.
 
 ## Integration Patterns
 
-### 1. Course Catalog Integration
+### Course Catalog
 
 ```javascript
-// Display your course catalog
 const courses = [
-  { id: "994850", name: "The Product Life Cycle", points: 100 },
-  { id: "1008545", name: "Investing vs. Savings Goals", points: 150 },
+  { id: '994850', name: 'The Product Life Cycle' },
+  { id: '1008545', name: 'Investing vs. Savings Goals' },
 ];
 
 courses.forEach((course) => {
@@ -87,110 +155,105 @@ courses.forEach((course) => {
 });
 ```
 
-### 2. Progress Tracking
+### Progress Tracking
+
+Do not infer authoritative completion merely because the SDK requested an exit. Use completion-specific sources and confirm completion with backend data when it affects rewards, access, or compliance.
 
 ```javascript
-function handleZogoExit(exitData) {
-  if (exitData.source === "end_of_module") {
-    // Update user's progress
-    updateUserProgress({
-      moduleId: exitData.context.moduleId,
-      completed: true,
-      completedAt: new Date(),
-    });
+const completionSources = new Set([
+  'end_of_module_continue',
+  'module_complete_exit_requested',
+  'badge_continue',
+]);
 
-    // Award points or badges
-    awardPoints(getModulePoints(exitData.context.moduleId));
+function handleZogoExit(exitData) {
+  const completed = completionSources.has(exitData.source);
+
+  if (completed) {
+    updateUserProgress({
+      moduleId: exitData.moduleId,
+      completed: true,
+      completedAt: new Date(exitData.timestamp),
+    });
   }
+
+  zogoContainer.style.display = 'none';
+  appContent.style.display = 'block';
 }
 ```
 
-### 3. Sequential Learning Paths
+### Sequential Learning Paths
 
 ```javascript
-const learningPath = ["994850", "1008545", "1234567"];
+const learningPath = ['994850', '1008545', '1234567'];
 let currentIndex = 0;
 
 function handleZogoExit(exitData) {
-  if (exitData.source === "end_of_module") {
-    currentIndex++;
-    if (currentIndex < learningPath.length) {
-      // Open next module automatically
-      openZogoModule(learningPath[currentIndex]);
-    } else {
-      // Learning path complete
-      showCompletionCertificate();
-    }
+  const completed =
+    exitData.source === 'end_of_module_continue' ||
+    exitData.source === 'module_complete_exit_requested';
+
+  if (!completed) {
+    returnToApp();
+    return;
+  }
+
+  currentIndex++;
+
+  if (currentIndex < learningPath.length) {
+    openZogoModule(learningPath[currentIndex]);
+  } else {
+    showCompletionCertificate();
   }
 }
 ```
 
-### 4. Gamification Integration
+### Gamification
 
 ```javascript
 function handleZogoExit(exitData) {
-  if (exitData.source === "end_of_module") {
-    // Show completion animation
-    showConfetti();
-
-    // Update leaderboard
-    updateLeaderboard(userId, moduleId);
-
-    // Check for achievements
-    checkAchievements(userId, moduleId);
+  if (!completionSources.has(exitData.source)) {
+    returnToApp();
+    return;
   }
+
+  showConfetti();
+  updateLeaderboard(userId, exitData.moduleId);
+  checkAchievements(userId, exitData.moduleId);
+  returnToApp();
 }
 ```
 
 ## Best Practices
 
-### 1. Always Handle Exit Events
+### Always Handle Exit Messages
 
-Deep link modules don't have navigation - the exit handler is the only way users return to your app.
+Deep-link mode sends an exit request instead of navigating elsewhere. The parent application must hide, close, or remove the Zogo container.
 
-### 2. Save State Before Opening
+### Validate Message Origins
 
-```javascript
-function openZogoModule(moduleId) {
-  // Save current state
-  saveAppState();
+Always verify `event.origin` before processing messages from an embedded iframe. Use the exact expected Zogo origin rather than accepting every origin.
 
-  // Track module start
-  analytics.track("module_started", { moduleId });
+### Register Before Initialization
 
-  // Open module
-  zogoElement.initialize({
-    user_auth_token: token,
-    widget_type: "deep_link",
-    module_id: moduleId,
-  });
-}
-```
+Attach the `message` listener before initializing the Zogo element so an early initialization or exit message cannot be missed.
 
-### 3. Provide Context on Return
+### Save Parent State
+
+Save the parent application's navigation and UI state before opening Zogo so it can restore the correct screen when `EXIT_REQUESTED` arrives.
+
+## Error Handling
+
+Initialization errors are also delivered through `window.postMessage()`:
 
 ```javascript
-function handleZogoExit(exitData) {
-  // Hide Zogo
-  zogoContainer.style.display = "none";
-  appContent.style.display = "block";
+window.addEventListener('message', (event) => {
+  if (event.origin !== ZOGO_ORIGIN) return;
 
-  // Show appropriate message
-  if (exitData.source === "end_of_module") {
-    showMessage("Great job! You earned 100 points!");
-  } else {
-    showMessage("Module saved. You can continue later.");
-  }
-}
-```
+  const message = event.data;
 
-### 4. Handle Errors Gracefully
-
-```javascript
-zogoElement.addEventListener("message", function (event) {
-  if (event.detail.type === "INITIALIZATION_ERROR") {
-    // Module might not exist or user lacks access
-    showError("Unable to load module. Please try again.");
+  if (message?.type === 'INITIALIZATION_ERROR') {
+    showError('Unable to load module. Please try again.');
     returnToApp();
   }
 });
@@ -198,88 +261,79 @@ zogoElement.addEventListener("message", function (event) {
 
 ## Common Use Cases
 
-### Educational Apps
+### Educational Applications
 
-- Link specific lessons from your curriculum
+- Link specific lessons from a curriculum
 - Track completion for grades or certificates
 - Enforce sequential learning
 
-### Banking Apps
+### Banking Applications
 
-- Offer financial literacy modules for specific products
-- Require module completion before account features
+- Offer financial-literacy modules for specific products
+- Require verified module completion before enabling account features
 - Provide educational content for regulatory compliance
 
 ### Employee Training
 
-- Assign specific modules to employees
-- Track completion for compliance
+- Assign modules to employees
+- Track verified completion for compliance
 - Link modules to job roles or departments
 
 ### Rewards Programs
 
-- Offer points for module completion
+- Offer points for verified module completion
 - Unlock features after education
 - Create learning challenges
 
 ## Testing Your Integration
 
-1. **Test with invalid module IDs** to ensure error handling works
-2. **Test all exit scenarios** (completion, back button, etc.)
-3. **Test offline behavior** - what happens if the network fails?
-4. **Test rapid switching** between modules
-5. **Test browser back button** behavior
+1. Test an invalid or inaccessible module ID.
+2. Test X-button exits and completion exits independently.
+3. Verify that the parent hides or removes Zogo after `EXIT_REQUESTED`.
+4. Test offline and interrupted-request behaviour.
+5. Test rapid switching between modules.
+6. Confirm that messages from unexpected origins are ignored.
 
 ## Security Considerations
 
-- Validate module IDs on your backend before passing to Zogo
-- Don't expose all module IDs to users if some require special access
-- Track module starts and completions on your backend for integrity
-- Consider rate limiting to prevent abuse
+- Validate the sender's origin for every window message.
+- Validate module IDs before passing them to Zogo.
+- Do not expose restricted module IDs unnecessarily.
+- Verify completion on the backend before granting valuable rewards or access.
+- Never expose authentication tokens in logs or analytics.
 
-## Analytics Integration
+## Analytics
 
-Track these events for insights:
+The exit message does not supply module details or progress. Combine it with context retained by the parent application.
 
 ```javascript
-// Module started
-analytics.track("zogo_module_started", {
-  moduleId: moduleId,
-  moduleName: getModuleName(moduleId),
-  timestamp: Date.now(),
-});
-
-// Module completed
-analytics.track("zogo_module_completed", {
-  moduleId: exitData.context.moduleId,
-  completionTime: calculateCompletionTime(),
-  exitSource: exitData.source,
-});
-
-// Module abandoned
-analytics.track("zogo_module_abandoned", {
-  moduleId: exitData.context.moduleId,
-  progress: exitData.context.progress,
-  timeSpent: calculateTimeSpent(),
-});
+function trackZogoExit(exitData) {
+  analytics.track('zogo_module_exit', {
+    moduleId: exitData.moduleId,
+    exitSource: exitData.source,
+    sdkTimestamp: exitData.timestamp,
+  });
+}
 ```
+
+If progress or completion time is required, measure it in the parent application or obtain authoritative completion data from the backend.
 
 ## Troubleshooting
 
-**Module won't load?**
+**Module will not load**
 
-- Verify the module ID is correct
-- Check that the user's token has access to the module
-- Look for `INITIALIZATION_ERROR` messages
+- Verify that the module ID is valid.
+- Confirm that the user's token can access the module.
+- Look for an `INITIALIZATION_ERROR` window message.
 
-**Exit handler not firing?**
+**Exit handler does not fire**
 
-- Ensure you're listening for the `message` event
-- Check that you're filtering for `EXIT_REQUESTED` type
-- Verify the event listener is added before initialization
+- Listen for the window `message` event.
+- Read the message from `event.data`, not `event.detail`.
+- Register the listener before initialization.
+- Confirm that the trusted-origin check matches the Zogo iframe origin.
+- Filter for `event.data.type === 'EXIT_REQUESTED'`.
 
-**Users getting stuck?**
+**Clicking X appears to do nothing**
 
-- Always provide a manual exit option in your UI
-- Consider adding a timeout for module loading
-- Monitor for users who don't complete modules
+Zogo only sends `EXIT_REQUESTED`; it does not close itself. Confirm that the parent application handles the message and hides or removes the Zogo container.
