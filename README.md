@@ -60,6 +60,7 @@ Choose your platform to get started with integration:
 ### 📱 Mobile Platforms
 
 - [**React Native Integration Guide**](examples/README_RN.md) - Complete guide for integrating Zogo 360 into React Native applications
+- [**Flutter Integration Guide**](examples/README_FLUTTER.md) - Native WebView integration for Flutter apps on iOS and Android
 
 ### 🌐 Web Platforms
 
@@ -69,7 +70,7 @@ Choose your platform to get started with integration:
 
 ### 🔧 Other Platforms
 
-- [**Platform Agnostic Implementation Guide**](examples/README_PAIG.md) - WebView-based integration guide for platforms not specifically supported (Swift, Kotlin, Flutter,TabrisJS, etc.)
+- [**Platform Agnostic Implementation Guide**](examples/README_PAIG.md) - WebView-based integration guide for platforms not specifically supported (Swift, Kotlin, TabrisJS, etc.)
 
 ## Configuration & Advanced Topics
 
@@ -127,6 +128,15 @@ Located in `examples/ReactNative Examples/`:
 - All integration examples in a mobile format
 - See the [React Native README](examples/README_RN.md) for detailed documentation
 
+### Flutter Examples
+
+Located in `examples/Flutter Examples/`:
+
+- Complete iOS and Android app using Flutter's official `webview_flutter` plugin
+- Secure in-memory token entry and exact iframe-origin validation
+- All six BasicJS examples presented as separate Flutter pages
+- See the [Flutter README](examples/README_FLUTTER.md) for detailed documentation
+
 ## Quick Links
 
 - **CDN URL**: `https://sdk-cdn.zogo.com/zogo-360-integration-latest.min.js`
@@ -134,6 +144,7 @@ Located in `examples/ReactNative Examples/`:
 - **Support**: Contact your Zogo representative
 - **JavaScript Guide**: [Full JavaScript Integration Documentation](examples/README_JS.md)
 - **React Native Guide**: [Full React Native Integration Documentation](examples/README_RN.md)
+- **Flutter Guide**: [Full Flutter Integration Documentation](examples/README_FLUTTER.md)
 - **Portal Configuration**: [Administrative Settings Guide](Additional%20Resources/Portal%20Configuration.md)
 - **Events Reference**: [Complete Events Documentation](Additional%20Resources/Zogo%20360%20Events.md)
 
@@ -141,6 +152,7 @@ Located in `examples/ReactNative Examples/`:
 
 - **Web**: Modern browsers with JavaScript enabled
 - **React Native**: React Native 0.60+ with react-native-webview
+- **Flutter**: Flutter 3.44+ with webview_flutter
 - **Authentication**: Backend server for secure token generation
 
 ## Security Best Practices
