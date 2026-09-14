@@ -1,0 +1,17 @@
+<h1>{{ title }}</h1>
+
+<div class="container">
+  <div class="controls">
+    <p>Click the button below to initialize Zogo 360:</p>
+
+    <button (click)="initializeZogo()" [disabled]="isInitialized">
+      {{ isInitialized ? "Zogo 360 Initialized" : "Initialize Zogo 360" }}
+    </button>
+
+    <p class="status" *ngIf="isInitialized">✓ Zogo 360 is now active</p>
+  </div>
+
+  <!-- Zogo 360 Web Component with auto-init disabled -->
+  <zogo-360 #zogoContainer width="100%" height="600px" auto-init="false">
+  </zogo-360>
+</div>
