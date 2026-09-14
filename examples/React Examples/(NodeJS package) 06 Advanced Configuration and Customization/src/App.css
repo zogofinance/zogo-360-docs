@@ -1,0 +1,212 @@
+.App {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.controls-panel {
+  width: 400px;
+  background: white;
+  padding: 30px;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.controls-panel h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.control-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.control-section h3 {
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.control-section p {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.theme-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.theme-buttons button {
+  padding: 12px 20px;
+  border: 2px solid #007bff;
+  background-color: white;
+  color: #007bff;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.theme-buttons button:hover {
+  background-color: #f0f8ff;
+}
+
+.theme-buttons button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.log-header p {
+  margin: 0;
+}
+
+.clear-log-btn {
+  padding: 6px 12px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clear-log-btn:hover {
+  background-color: #c82333;
+}
+
+.customization-log {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.no-logs {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  margin: 20px 0;
+}
+
+.log-entry {
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+}
+
+.log-entry:last-child {
+  border-bottom: none;
+}
+
+.log-time {
+  color: #666;
+  margin-right: 10px;
+}
+
+.log-type {
+  font-weight: 600;
+  color: #007bff;
+  margin-right: 5px;
+}
+
+.log-message {
+  color: #333;
+}
+
+.info-section {
+  background: #e3f2fd;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.info-section h3 {
+  color: #1976d2;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.info-section p {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.info-section ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.info-section li {
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.info-section strong {
+  color: #333;
+}
+
+.zogo-container {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#zogo-element {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .App {
+    flex-direction: column;
+  }
+
+  .controls-panel {
+    width: 100%;
+    max-width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .zogo-container {
+    min-height: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .controls-panel {
+    padding: 20px;
+  }
+
+  .controls-panel h1 {
+    font-size: 20px;
+  }
+
+  .control-section {
+    padding: 15px;
+  }
+}

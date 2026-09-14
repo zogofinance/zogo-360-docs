@@ -1,0 +1,60 @@
+<!-- Main App Content -->
+<div *ngIf="!showZogo" [@fadeInOut] class="app-content">
+  <h1>{{ title }}</h1>
+
+  <!-- Progress Section -->
+  <div class="progress-section">
+    <p>Complete these skills to improve your financial knowledge</p>
+    <p>
+      <strong
+        >{{ getCompletedCount() }} of {{ skills.length }} skills
+        completed</strong
+      >
+    </p>
+    <div class="progress-bar">
+      <div
+        class="progress-fill"
+        [style.width.%]="getProgressPercentage()"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Skills Grid -->
+  <div class="skill-grid">
+    <div
+      *ngFor="let skill of skills"
+      class="skill-card"
+      [class.completed]="skill.completed"
+    >
+      <div class="skill-card-header">
+        <h3>{{ skill.title }}</h3>
+        <span *ngIf="skill.completed" class="completion-badge">Completed</span>
+      </div>
+
+      <div class="skill-card-body">
+        <p>{{ skill.description }}</p>
+
+        <div class="skill-metadata">
+          <span class="time">{{ skill.estimatedTime }}</span>
+          <span class="modules">{{ skill.moduleCount }} modules</span>
+        </div>
+
+        <button (click)="openZogoSkill(skill.id)" [disabled]="skill.completed">
+          {{ skill.completed ? "Completed" : "Start Skill" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Zogo 360 Container -->
+<div *ngIf="showZogo" class="zogo-container">
+  <zogo-360
+    #zogoElement
+    width="100%"
+    height="100vh"
+    auto-init="false"
+    (message)="onZogoMessage($event)"
+  >
+  </zogo-360>
+</div>

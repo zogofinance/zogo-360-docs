@@ -1,0 +1,158 @@
+.App {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.app-content {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app-content h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.app-content > p {
+  text-align: center;
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.skill-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.skill-card.completed {
+  background: #f0f9ff;
+  border: 2px solid #28a745;
+}
+
+.skill-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.skill-card h3 {
+  color: #333;
+  margin: 0 0 15px 0;
+  font-size: 22px;
+}
+
+.skill-card p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.skill-button {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.skill-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.skill-button:active:not(:disabled) {
+  background-color: #004085;
+}
+
+.skill-button:disabled {
+  background-color: #28a745;
+  cursor: default;
+}
+
+.progress-section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.progress-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 30px;
+  background-color: #e9ecef;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #28a745;
+  transition: width 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+.progress-section p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+.zogo-container {
+  width: 100%;
+  height: 100vh;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-content {
+    padding: 20px 15px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .skill-card {
+    padding: 20px;
+  }
+
+  .skill-icon {
+    font-size: 36px;
+  }
+}
