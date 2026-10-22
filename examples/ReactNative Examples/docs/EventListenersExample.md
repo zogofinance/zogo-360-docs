@@ -107,3 +107,9 @@ The on-screen console will show messages like:
 
 The implementation can be found at:
 `/src/screens/EventListenersExample.js`
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

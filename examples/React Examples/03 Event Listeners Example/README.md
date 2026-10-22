@@ -178,3 +178,9 @@ const handlePlaySound = (event) => {
 - The Zogo 360 element must exist before adding listeners
 - Some events may require specific user interactions to trigger
 - Always test event handling across different browsers
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

@@ -337,3 +337,9 @@ If progress or completion time is required, measure it in the parent application
 **Clicking X appears to do nothing**
 
 Zogo only sends `EXIT_REQUESTED`; it does not close itself. Confirm that the parent application handles the message and hides or removes the Zogo container.
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

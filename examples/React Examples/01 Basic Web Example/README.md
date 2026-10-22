@@ -79,3 +79,9 @@ function App() {
 - Custom elements like `<zogo-360>` work seamlessly in React
 - The Zogo 360 script must be loaded before React attempts to render the component
 - Make sure to include the script tag in your HTML template, not as a React import
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

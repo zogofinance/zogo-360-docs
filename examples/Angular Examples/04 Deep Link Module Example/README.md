@@ -122,3 +122,9 @@ The example handles different exit scenarios:
 - The example tracks completion status in component state (could use a service for persistence)
 - Deep linking requires the `widget_type: 'deep_link'` configuration
 - Only one module can be active at a time
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

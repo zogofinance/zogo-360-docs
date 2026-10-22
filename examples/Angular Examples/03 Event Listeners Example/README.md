@@ -112,3 +112,9 @@ onZogoMessage(event: CustomEvent): void {
 - Custom event types can be defined using TypeScript interfaces
 - The event log has a maximum size to prevent memory issues
 - URL open requests are logged but not automatically opened (for security)
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

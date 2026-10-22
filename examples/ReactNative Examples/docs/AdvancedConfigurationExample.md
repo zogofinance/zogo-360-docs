@@ -78,3 +78,9 @@ The example listens for CSS-related events:
 
 - `CUSTOM_CSS_APPLIED`: Confirms successful theme application
 - `CUSTOM_CSS_ERROR`: Handles theme application failures
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

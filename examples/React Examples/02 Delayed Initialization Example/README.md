@@ -194,3 +194,9 @@ useEffect(() => {
 - The `useRef` hook is essential for accessing DOM properties of custom elements in React
 - Make sure the Zogo 360 script is loaded before attempting to initialize
 - The `auto-init="false"` attribute is crucial to prevent automatic initialization
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

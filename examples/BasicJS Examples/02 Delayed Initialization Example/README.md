@@ -111,3 +111,9 @@ const observer = new IntersectionObserver((entries) => {
 });
 observer.observe(document.getElementById("zogo-section"));
 ```
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

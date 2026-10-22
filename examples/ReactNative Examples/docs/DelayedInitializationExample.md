@@ -103,3 +103,9 @@ In React Native, we achieve the same delayed initialization by:
 
 The implementation can be found at:
 `/src/screens/DelayedInitializationExample.js`
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

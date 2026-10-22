@@ -47,3 +47,9 @@ Available routes are `/basic`, `/delayed`, `/events`, `/module`, `/skill`, and
 
 For implementation details, message flow, security guidance, and integration
 snippets, see the [Flutter Integration Guide](../README_FLUTTER.md).
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)
