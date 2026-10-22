@@ -394,3 +394,9 @@ zogoElement.addEventListener("message", function (event) {
 - [ ] Test reward distribution
 - [ ] Test progress tracking
 - [ ] Test error scenarios
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

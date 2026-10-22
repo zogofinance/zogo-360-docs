@@ -211,3 +211,9 @@ To get valid skill IDs:
 - Consider implementing a skill recommendation engine
 - Track skill completion analytics for insights
 - Skills can be grouped into categories or learning paths
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

@@ -384,3 +384,9 @@ zogoElement.addEventListener("playsound", function (event) {
 - Look for `INITIALIZATION_ERROR` messages if things aren't working
 - Monitor `AUTH_TOKEN_PROCESSED` to ensure authentication succeeds
 - Watch for `CONTAINER_READY` before attempting any operations
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

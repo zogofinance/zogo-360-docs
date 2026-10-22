@@ -158,3 +158,9 @@ achievements.achievements.forEach((achievement) => {
 ## Navigation
 
 From the main examples screen, tap on "User Data Example" to see this implementation in action. Make sure you have set an authentication token in the Token Context before testing the API calls.
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

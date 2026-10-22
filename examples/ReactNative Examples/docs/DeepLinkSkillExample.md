@@ -66,3 +66,9 @@ The example handles different exit scenarios:
 - Handle exit events appropriately
 - Consider implementing progress persistence
 - Add prerequisite checking for advanced skills
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

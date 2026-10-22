@@ -64,3 +64,9 @@ In React Native, we achieve the same result with:
 
 The implementation can be found at:
 `/src/screens/BasicWebExample.js`
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

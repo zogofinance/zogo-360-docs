@@ -153,3 +153,9 @@ if (exitData.source === "end_of_module") {
 
 The implementation can be found at:
 `/src/screens/DeepLinkModuleExample.js`
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

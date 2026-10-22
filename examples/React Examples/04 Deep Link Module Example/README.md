@@ -184,3 +184,9 @@ To get valid module IDs:
 - Deep linking requires proper authentication
 - Users can navigate away from the specified module once inside Zogo 360
 - Consider implementing module prerequisites in your app logic
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

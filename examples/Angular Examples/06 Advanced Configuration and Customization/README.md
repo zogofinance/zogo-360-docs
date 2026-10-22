@@ -156,3 +156,9 @@ setCustomCSS(null, "https://example.com/theme.css", "url");
 - Custom CSS has priority over default styles
 - Consider implementing theme persistence using localStorage
 - The theme service could be extended to support user-created themes
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

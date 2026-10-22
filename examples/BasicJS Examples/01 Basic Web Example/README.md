@@ -33,3 +33,9 @@ When you open this example:
 2. The package registers the `<zogo-360>` custom element
 3. The element automatically initializes using the provided token
 4. An iframe is created and displays the Zogo 360 interface
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

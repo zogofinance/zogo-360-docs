@@ -77,3 +77,9 @@ When you run this example:
 - The Zogo 360 script is loaded in `index.html` to ensure it's available globally
 - The custom element is used directly in the Angular template
 - No special Angular wrapper is needed - the web component works natively
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

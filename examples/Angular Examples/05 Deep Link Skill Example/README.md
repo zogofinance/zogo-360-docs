@@ -137,3 +137,9 @@ When a skill is completed:
 - Progress within a skill is typically tracked by Zogo 360
 - Consider implementing persistence (localStorage/backend) for completion status
 - The example includes estimated time and module count for better UX
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)

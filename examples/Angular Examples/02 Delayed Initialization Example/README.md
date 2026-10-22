@@ -98,3 +98,9 @@ initializeZogo(): void {
 - ViewChild with `static: false` ensures the element is available after view initialization
 - The component tracks initialization state to provide user feedback
 - Error handling can be added to the initialization method for production use
+
+---
+
+## Documentation Feedback
+
+[Leave feedback on this documentation](https://wkf.ms/4qJ5jnf)
